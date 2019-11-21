@@ -1,3 +1,5 @@
+window.addEventListener('load', init);
+
 // Globals
 let time = 5;
 let score = 0;
@@ -44,5 +46,36 @@ const words = [
 
 // Initialize Game
 function init() {
-  
+  // Load word from array
+  showWord(words);
+  // Call countdown every second
+  setInterval(countdown, 1000);
+  setInterval(checkStatus, 50);
+}
+
+// Pick & Show Random Word
+function showWord(words) {
+  // Generate Random Array Index
+  const randIndex = Math.floor(Math.random() * words.length);
+  // Output Random Word
+  currentWord.innerHTML = words[randIndex];
+}
+
+// Countdown Timer
+function countdown() {
+  // Make sure time has not run out
+  if (time > 0) {
+    time--;
+  } else if (time === 0) {
+    isPlaying = false;
+  }
+  // Show time
+  timeDisplay.innerHTML = time;
+}
+
+// Check Game Status
+function checkStatus() {
+  if (!isPlaying && time === 0) {
+    message.innerHTML = 'Game Over!';
+  }
 }
