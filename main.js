@@ -5,7 +5,7 @@ window.addEventListener("load", init);
 const levels = {
   easy: 5,
   medium: 3,
-  hard: 2
+  hard: 1
 }
 
 // Change the level
@@ -30,7 +30,7 @@ const words = [
   "siblings",
   "master",
   "definition",
-  "grettings",
+  "greetings",
   "nutrition",
   "investigate",
   "horrendous",
@@ -51,11 +51,15 @@ const words = [
   "programmer",
   "architect",
   "horizon",
-  "peace"
+  "peace",
+  "establisment",
+  "lucky"
 ];
 
 // Initialize Game
 function init() {
+  // Show Seconds
+  seconds.innerHTML = currentLevel;
   // Load word from array
   showWord(words);
   wordInput.addEventListener("input", startMatch);
