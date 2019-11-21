@@ -1,54 +1,64 @@
-window.addEventListener('load', init);
+window.addEventListener("load", init);
 
 // Globals
-let time = 5;
+
+const levels = {
+  easy: 5,
+  medium: 3,
+  hard: 2
+}
+
+// Change the level
+const currentLevel = levels.easy;
+
+let time = currentLevel;
 let score = 0;
 let isPlaying;
 
 // DOM Elements
-const wordInput = document.querySelector('#word-input');
-const currentWord = document.querySelector('#current-word');
-const scoreDisplay = document.querySelector('#score');
-const timeDisplay = document.querySelector('#time');
-const message = document.querySelector('#message');
-const seconds = document.querySelector('#seconds');
+const wordInput = document.querySelector("#word-input");
+const currentWord = document.querySelector("#current-word");
+const scoreDisplay = document.querySelector("#score");
+const timeDisplay = document.querySelector("#time");
+const message = document.querySelector("#message");
+const seconds = document.querySelector("#seconds");
 
 const words = [
-  'joke',
-  'space',
-  'laughter',
-  'siblings',
-  'master',
-  'definition',
-  'grettings',
-  'nutrition',
-  'investigate',
-  'horrendous',
-  'symptom',
-  'laughter',
-  'developer',
-  'engineer',
-  'hero',
-  'runaway',
-  'cocktail',
-  'serious',
-  'monarch',
-  'biology',
-  'geometry',
-  'algebra',
-  'science',
-  'history',
-  'programmer',
-  'architect',
-  'horizon',
-  'peace'
+  "joke",
+  "space",
+  "laughter",
+  "siblings",
+  "master",
+  "definition",
+  "grettings",
+  "nutrition",
+  "investigate",
+  "horrendous",
+  "symptom",
+  "keyboard",
+  "developer",
+  "engineer",
+  "hero",
+  "runaway",
+  "cocktail",
+  "serious",
+  "monarch",
+  "biology",
+  "geometry",
+  "algebra",
+  "science",
+  "history",
+  "programmer",
+  "architect",
+  "horizon",
+  "peace"
 ];
 
 // Initialize Game
 function init() {
   // Load word from array
   showWord(words);
-  wordInput.addEventListener('input', startMatch);
+  wordInput.addEventListener("input", startMatch);
   // Call countdown every second
   setInterval(countdown, 1000);
   setInterval(checkStatus, 50);
@@ -58,18 +68,24 @@ function init() {
 function startMatch() {
   if (matchWords()) {
     isPlaying = true;
-    time = 6;
+    time = currentLevel + 1;
     showWord(words);
-    wordInput.value = '';
+    wordInput.value = "";
     score++;
   }
-  scoreDisplay.innerHTML = score;
+
+  // If score is -1, display 0
+  if (score === -1) {
+    scoreDisplay.innerHTML = 0;
+  } else {
+    scoreDisplay.innerHTML = score;
+  }
 }
 
 // Match currentWord to wordInput
 function matchWords() {
   if (wordInput.value === currentWord.innerHTML) {
-    message.innerHTML = 'Correct!';
+    message.innerHTML = "Correct!";
     return true;
   } else {
     message.innerHTML = "";
@@ -100,7 +116,7 @@ function countdown() {
 // Check Game Status
 function checkStatus() {
   if (!isPlaying && time === 0) {
-    message.innerHTML = 'Game Over!';
+    message.innerHTML = "Game Over!";
     score = -1;
   }
 }
